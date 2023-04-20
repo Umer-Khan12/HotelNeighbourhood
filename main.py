@@ -8,7 +8,7 @@ class MainFrame(ctk.CTkFrame):
 
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
-        self.rowconfigure(0, weight=1)
+        self.rowconfigure(1, weight=1)
 
         # Buttons to choose between Default or ChatGPT mode
         self.default_btn = ctk.CTkButton(self, text="Default Mode", command=controller.switch_frame_to_default)
@@ -22,6 +22,9 @@ class DefaultFrame(ctk.CTkFrame):
         super().__init__(parent)
 
         self.grid(row=0, column=0, sticky="news")
+
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure(0, weight=0)
 
         self.test_label = ctk.CTkLabel(self, text="This is the Default window")
         self.test_label.grid(padx=20, pady=20)
@@ -39,6 +42,9 @@ class ChatGPTFrame(ctk.CTkFrame):
         super().__init__(parent)
 
         self.grid(row=0, column=0, sticky="news")
+
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure(0, weight=0)
 
         self.test_label = ctk.CTkLabel(self, text="This is the ChatGPT window")
         self.test_label.grid(padx=20, pady=20)
@@ -61,11 +67,13 @@ class App(ctk.CTk):
         self.title("Hotel Neighbourhood")
 
         # Controller to stack frames on
+
+        container = ctk.CTkFrame(self)
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
-        container = ctk.CTkFrame(self)
-        container.grid(row=0, column=0, sticky="nsew")
-
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+        container.grid(row=0, column=0, sticky="news")
 
         # Setting up the different frames in the program
         # Main window = 0, Default Mode window = 1, ChatGPT Mode window = 2
