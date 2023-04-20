@@ -14,29 +14,29 @@ class MainFrame(ctk.CTkFrame):
 class DefaultFrame(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
-        self.test_label = ctk.CTkLabel(self, text="This is the Default window")
-        self.test_label.pack(padx=20, pady=20)
+        self.test_label = ctk.CTkLabel(parent, text="This is the Default window")
+        self.test_label.grid(padx=20, pady=20)
 
         # Hotel URL input
-        self.url_lbl = ctk.CTkLabel(self, text="Enter a hotel URL from booking.com:")
-        self.url_lbl.pack(padx=20, pady=20)
+        self.url_lbl = ctk.CTkLabel(parent, text="Enter a hotel URL from booking.com:")
+        self.url_lbl.grid(padx=20, pady=20)
         self.url_input = ctk.StringVar()
-        self.url_entry = ctk.CTkEntry(self, width=350, height=40, textvariable=self.url_input)
-        self.url_entry.pack()
+        self.url_entry = ctk.CTkEntry(parent, width=350, height=40, textvariable=self.url_input)
+        self.url_entry.grid()
 
 
 class ChatGPTFrame(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
-        self.test_label = ctk.CTkLabel(self, text="This is the ChatGPT window")
-        self.test_label.pack(padx=20, pady=20)
+        self.test_label = ctk.CTkLabel(parent, text="This is the ChatGPT window")
+        self.test_label.grid(padx=20, pady=20)
 
         # Hotel URL input
-        self.url_lbl = ctk.CTkLabel(self, text="Enter a hotel URL from booking.com:")
-        self.url_lbl.pack(padx=20, pady=20)
+        self.url_lbl = ctk.CTkLabel(parent, text="Enter a hotel URL from booking.com:")
+        self.url_lbl.grid(padx=20, pady=20)
         self.url_input = ctk.StringVar()
-        self.url_entry = ctk.CTkEntry(self, width=350, height=40, textvariable=self.url_input)
-        self.url_entry.pack()
+        self.url_entry = ctk.CTkEntry(parent, width=350, height=40, textvariable=self.url_input)
+        self.url_entry.grid()
 
 
 class App(ctk.CTk):
@@ -60,14 +60,15 @@ class App(ctk.CTk):
         self.frame_list[1].forget()
         self.frame_list[2].forget()
 
-
     def switch_frame_to_default(self):
         self.frame_list[0].forget()
         self.frame_list[1].tkraise()
+        print("Default button clicked")
 
     def switch_frame_to_cgpt(self):
         self.frame_list[0].forget()
         self.frame_list[2].tkraise()
+        print("CGPT button clicked")
 
 
 if __name__ == "__main__":
