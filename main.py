@@ -1,5 +1,16 @@
 import customtkinter as ctk
 
+class MainFrame(ctk.CTkFrame):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        # Buttons to choose between Default or ChatGPT mode
+        self.default_btn = ctk.CTkButton(parent, text="Default Mode", command=parent.switch_frame_to_default)
+        self.default_btn.grid(row=0, column=0, padx=20, pady=20)
+        self.cgpt_btn = ctk.CTkButton(parent, text="ChatGPT Mode", command=parent.switch_frame_to_cgpt)
+        self.cgpt_btn.grid(row=0, column=1, padx=20, pady=20)
+
+
 class DefaultFrame(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -43,17 +54,12 @@ class App(ctk.CTk):
         # Setting up the different frames in the program
         # Main window = 0, Default Mode window = 1, ChatGPT Mode window = 2
         self.frame_list = []
-        self.frame_list.append(self)
+        self.frame_list.append(MainFrame(self))
         self.frame_list.append(DefaultFrame(self))
         self.frame_list.append(ChatGPTFrame(self))
         self.frame_list[1].forget()
         self.frame_list[2].forget()
 
-        # Buttons to choose between Default or ChatGPT mode
-        self.default_btn = ctk.CTkButton(self, text="Default Mode", command=self.switch_frame_to_default)
-        self.default_btn.grid(row=0, column=0, padx=20, pady=20)
-        self.cgpt_btn = ctk.CTkButton(self, text="ChatGPT Mode", command=self.switch_frame_to_cgpt)
-        self.cgpt_btn.grid(row=0, column=1, padx=20, pady=20)
 
     def switch_frame_to_default(self):
         self.frame_list[0].forget()
