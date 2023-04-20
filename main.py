@@ -4,42 +4,50 @@ class MainFrame(ctk.CTkFrame):
     def __init__(self, parent, controller):
         super().__init__(parent)
 
+        self.grid(row=0, column=0, sticky="news")
+
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.rowconfigure(0, weight=1)
 
         # Buttons to choose between Default or ChatGPT mode
-        self.default_btn = ctk.CTkButton(parent, text="Default Mode", command=controller.switch_frame_to_default)
-        self.default_btn.grid(row=0, column=0, padx=20, pady=20)
-        self.cgpt_btn = ctk.CTkButton(parent, text="ChatGPT Mode", command=controller.switch_frame_to_cgpt)
-        self.cgpt_btn.grid(row=0, column=1, padx=20, pady=20)
+        self.default_btn = ctk.CTkButton(self, text="Default Mode", command=controller.switch_frame_to_default)
+        self.default_btn.grid(row=1, column=0, padx=20, pady=20)
+        self.cgpt_btn = ctk.CTkButton(self, text="ChatGPT Mode", command=controller.switch_frame_to_cgpt)
+        self.cgpt_btn.grid(row=1, column=1, padx=20, pady=20)
 
 
 class DefaultFrame(ctk.CTkFrame):
     def __init__(self, parent, controller):
         super().__init__(parent)
-        self.test_label = ctk.CTkLabel(parent, text="This is the Default window")
+
+        self.grid(row=0, column=0, sticky="news")
+
+        self.test_label = ctk.CTkLabel(self, text="This is the Default window")
         self.test_label.grid(padx=20, pady=20)
 
         # Hotel URL input
-        self.url_lbl = ctk.CTkLabel(parent, text="Enter a hotel URL from booking.com:")
+        self.url_lbl = ctk.CTkLabel(self, text="Enter a hotel URL from booking.com:")
         self.url_lbl.grid(padx=20, pady=20)
         self.url_input = ctk.StringVar()
-        self.url_entry = ctk.CTkEntry(parent, width=350, height=40, textvariable=self.url_input)
+        self.url_entry = ctk.CTkEntry(self, width=350, height=40, textvariable=self.url_input)
         self.url_entry.grid()
 
 
 class ChatGPTFrame(ctk.CTkFrame):
     def __init__(self, parent, controller):
         super().__init__(parent)
-        self.test_label = ctk.CTkLabel(parent, text="This is the ChatGPT window")
+
+        self.grid(row=0, column=0, sticky="news")
+
+        self.test_label = ctk.CTkLabel(self, text="This is the ChatGPT window")
         self.test_label.grid(padx=20, pady=20)
 
         # Hotel URL input
-        self.url_lbl = ctk.CTkLabel(parent, text="Enter a hotel URL from booking.com:")
+        self.url_lbl = ctk.CTkLabel(self, text="Enter a hotel URL from booking.com:")
         self.url_lbl.grid(padx=20, pady=20)
         self.url_input = ctk.StringVar()
-        self.url_entry = ctk.CTkEntry(parent, width=350, height=40, textvariable=self.url_input)
+        self.url_entry = ctk.CTkEntry(self, width=350, height=40, textvariable=self.url_input)
         self.url_entry.grid()
 
 
@@ -53,10 +61,11 @@ class App(ctk.CTk):
         self.title("Hotel Neighbourhood")
 
         # Controller to stack frames on
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
         container = ctk.CTkFrame(self)
         container.grid(row=0, column=0, sticky="nsew")
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
+
 
         # Setting up the different frames in the program
         # Main window = 0, Default Mode window = 1, ChatGPT Mode window = 2
@@ -64,9 +73,6 @@ class App(ctk.CTk):
         self.frame_list.append(MainFrame(container, self))
         self.frame_list.append(DefaultFrame(container, self))
         self.frame_list.append(ChatGPTFrame(container, self))
-        self.frame_list[0].grid(row=0, column=0, sticky="nsew")
-        self.frame_list[1].grid(row=0, column=0, sticky="nsew")
-        self.frame_list[2].grid(row=0, column=0, sticky="nsew")
         self.frame_list[0].tkraise()
 
     def switch_frame_to_default(self):
