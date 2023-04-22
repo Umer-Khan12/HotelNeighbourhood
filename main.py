@@ -29,6 +29,9 @@ class DefaultFrame(ctk.CTkFrame):
         self.test_label = ctk.CTkLabel(self, text="This is the Default window")
         self.test_label.grid(padx=20, pady=20)
 
+        self.back_btn = ctk.CTkButton(self, text="Back", command=controller.switch_frame_to_main)
+        self.back_btn.grid(row=1, column=1, padx=20, pady=20, sticky="s")
+
         # Hotel URL input
         self.url_lbl = ctk.CTkLabel(self, text="Enter a hotel URL from booking.com:")
         self.url_lbl.grid(padx=20, pady=20)
@@ -48,6 +51,9 @@ class ChatGPTFrame(ctk.CTkFrame):
 
         self.test_label = ctk.CTkLabel(self, text="This is the ChatGPT window")
         self.test_label.grid(padx=20, pady=20)
+
+        self.back_btn = ctk.CTkButton(self, text="Back", command=controller.switch_frame_to_main)
+        self.back_btn.grid(row=1, column=1, padx=20, pady=20, sticky="s")
 
         # Hotel URL input
         self.url_lbl = ctk.CTkLabel(self, text="Enter a hotel URL from booking.com:")
@@ -86,12 +92,15 @@ class App(ctk.CTk):
     def switch_frame_to_default(self):
         self.frame_list[0].forget()
         self.frame_list[1].tkraise()
-        print("Default button clicked")
 
     def switch_frame_to_cgpt(self):
         self.frame_list[0].forget()
         self.frame_list[2].tkraise()
-        print("CGPT button clicked")
+
+    def switch_frame_to_main(self):
+        self.frame_list[1].forget()
+        self.frame_list[2].forget()
+        self.frame_list[0].tkraise()
 
 
 if __name__ == "__main__":
