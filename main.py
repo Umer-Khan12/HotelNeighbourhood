@@ -26,18 +26,19 @@ class DefaultFrame(ctk.CTkFrame):
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=0)
 
-        self.test_label = ctk.CTkLabel(self, text="This is the Default window")
-        self.test_label.grid(padx=20, pady=20)
+        self.test_label = ctk.CTkLabel(self, text="Default Mode")
+        self.test_label.grid(row=0, column=0, padx=20, pady=20)
 
+        # Create a back button in the centre of the frame by adding in empty grid spaces in between
         self.back_btn = ctk.CTkButton(self, text="Back", command=controller.switch_frame_to_main)
-        self.back_btn.grid(row=1, column=1, padx=20, pady=20, sticky="s")
+        self.back_btn.grid(row=3, column=0, padx=20, pady=20)
 
         # Hotel URL input
         self.url_lbl = ctk.CTkLabel(self, text="Enter a hotel URL from booking.com:")
-        self.url_lbl.grid(padx=20, pady=20)
+        self.url_lbl.grid(row=1, column=0, padx=20, pady=20)
         self.url_input = ctk.StringVar()
         self.url_entry = ctk.CTkEntry(self, width=350, height=40, textvariable=self.url_input)
-        self.url_entry.grid()
+        self.url_entry.grid(row=2, column=0)
 
 
 class ChatGPTFrame(ctk.CTkFrame):
@@ -49,18 +50,18 @@ class ChatGPTFrame(ctk.CTkFrame):
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=0)
 
-        self.test_label = ctk.CTkLabel(self, text="This is the ChatGPT window")
-        self.test_label.grid(padx=20, pady=20)
+        self.test_label = ctk.CTkLabel(self, text="ChatGPT Mode")
+        self.test_label.grid(row=0, column=0, padx=20, pady=20)
 
         self.back_btn = ctk.CTkButton(self, text="Back", command=controller.switch_frame_to_main)
-        self.back_btn.grid(row=1, column=1, padx=20, pady=20, sticky="s")
+        self.back_btn.grid(row=3, column=0, padx=20, pady=20, sticky="s")
 
         # Hotel URL input
         self.url_lbl = ctk.CTkLabel(self, text="Enter a hotel URL from booking.com:")
-        self.url_lbl.grid(padx=20, pady=20)
+        self.url_lbl.grid(row=1, column=0, padx=20, pady=20)
         self.url_input = ctk.StringVar()
         self.url_entry = ctk.CTkEntry(self, width=350, height=40, textvariable=self.url_input)
-        self.url_entry.grid()
+        self.url_entry.grid(row=2, column=0)
 
 
 class App(ctk.CTk):
