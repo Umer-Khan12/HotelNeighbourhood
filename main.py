@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from functools import partial
 
 class MainFrame(ctk.CTkFrame):
     def __init__(self, parent, controller):
@@ -22,23 +23,24 @@ class DefaultFrame(ctk.CTkFrame):
         super().__init__(parent)
 
         self.grid(row=0, column=0, sticky="news")
-
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=0)
 
-        self.test_label = ctk.CTkLabel(self, text="Default Mode")
-        self.test_label.grid(row=0, column=0, padx=20, pady=20)
-
-        # Create a back button in the centre of the frame by adding in empty grid spaces in between
-        self.back_btn = ctk.CTkButton(self, text="Back", command=controller.switch_frame_to_main)
-        self.back_btn.grid(row=3, column=0, padx=20, pady=20)
+        self.title_lbl = ctk.CTkLabel(self, text="Default Mode")
+        self.title_lbl.grid(row=0, column=0, padx=20, pady=20)
 
         # Hotel URL input
         self.url_lbl = ctk.CTkLabel(self, text="Enter a hotel URL from booking.com:")
         self.url_lbl.grid(row=1, column=0, padx=20, pady=20)
-        self.url_input = ctk.StringVar()
-        self.url_entry = ctk.CTkEntry(self, width=350, height=40, textvariable=self.url_input)
+        self.url_entry = ctk.CTkEntry(self, width=350, height=40)
         self.url_entry.grid(row=2, column=0)
+
+        # Buttons
+        self.submit_btn = ctk.CTkButton(self, text="Submit",
+                                        command=lambda: controller.on_submit(self.url_entry.get(), False))
+        self.submit_btn.grid(row=3, column=0, padx=10, pady=10)
+        self.back_btn = ctk.CTkButton(self, text="Back", command=controller.switch_frame_to_main)
+        self.back_btn.grid(row=4, column=0, padx=20, pady=20, sticky="s")
 
 
 class ChatGPTFrame(ctk.CTkFrame):
@@ -46,22 +48,24 @@ class ChatGPTFrame(ctk.CTkFrame):
         super().__init__(parent)
 
         self.grid(row=0, column=0, sticky="news")
-
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=0)
 
-        self.test_label = ctk.CTkLabel(self, text="ChatGPT Mode")
-        self.test_label.grid(row=0, column=0, padx=20, pady=20)
-
-        self.back_btn = ctk.CTkButton(self, text="Back", command=controller.switch_frame_to_main)
-        self.back_btn.grid(row=3, column=0, padx=20, pady=20, sticky="s")
+        self.title_lbl = ctk.CTkLabel(self, text="ChatGPT Mode")
+        self.title_lbl.grid(row=0, column=0, padx=20, pady=20)
 
         # Hotel URL input
         self.url_lbl = ctk.CTkLabel(self, text="Enter a hotel URL from booking.com:")
         self.url_lbl.grid(row=1, column=0, padx=20, pady=20)
-        self.url_input = ctk.StringVar()
-        self.url_entry = ctk.CTkEntry(self, width=350, height=40, textvariable=self.url_input)
+        self.url_entry = ctk.CTkEntry(self, width=350, height=40)
         self.url_entry.grid(row=2, column=0)
+
+        # Buttons
+        self.submit_btn = ctk.CTkButton(self, text="Submit",
+                                        command=lambda:controller.on_submit(self.url_entry.get(), True))
+        self.submit_btn.grid(row=3, column=0, padx=10, pady=10)
+        self.back_btn = ctk.CTkButton(self, text="Back", command=controller.switch_frame_to_main)
+        self.back_btn.grid(row=4, column=0, padx=20, pady=20, sticky="s")
 
 
 class App(ctk.CTk):
@@ -102,6 +106,11 @@ class App(ctk.CTk):
         self.frame_list[1].forget()
         self.frame_list[2].forget()
         self.frame_list[0].tkraise()
+
+    # url holds a booking.com string.
+    # cgpt is either True or False. True => Chat GPT mode
+    def on_submit(self, url, cgpt):
+        print(url)
 
 
 if __name__ == "__main__":
