@@ -34,6 +34,8 @@ class DefaultFrame(ctk.CTkFrame):
         self.url_lbl.grid(row=1, column=0, padx=20, pady=20)
         self.url_entry = ctk.CTkEntry(self, width=350, height=40)
         self.url_entry.grid(row=2, column=0)
+        # Bind the enter key as a submit
+        self.url_entry.bind("<Return>", lambda event:controller.on_submit(self.url_entry.get(), False))
 
         # Buttons
         self.submit_btn = ctk.CTkButton(self, text="Submit",
@@ -59,6 +61,8 @@ class ChatGPTFrame(ctk.CTkFrame):
         self.url_lbl.grid(row=1, column=0, padx=20, pady=20)
         self.url_entry = ctk.CTkEntry(self, width=350, height=40)
         self.url_entry.grid(row=2, column=0)
+        # Bind the enter key as a submit
+        self.url_entry.bind("<Return>", lambda event:controller.on_submit(self.url_entry.get(), True))
 
         # Buttons
         self.submit_btn = ctk.CTkButton(self, text="Submit",
