@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from functools import partial
+import webscraper as ws
 
 class MainFrame(ctk.CTkFrame):
     def __init__(self, parent, controller):
@@ -114,7 +114,12 @@ class App(ctk.CTk):
     # url holds a booking.com string.
     # cgpt is either True or False. True => Chat GPT mode
     def on_submit(self, url, cgpt):
-        print(url)
+        if cgpt:
+            # CGPT sequence
+            pass
+        else:
+            # Default sequence
+            pass
 
 
 if __name__ == "__main__":
